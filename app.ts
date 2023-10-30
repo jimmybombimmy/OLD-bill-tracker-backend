@@ -4,17 +4,15 @@ const fbApp = require("./firebase.ts")
 
 dotenv.config();
 
-console.log(fbApp)
-
 const app: Express = express(); 
-const port = process.env.PORT
-
-console.log(port)
+const port = 9090
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript are running together')
 })
 
+app.get('/users, ')
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
-});
+}); 
