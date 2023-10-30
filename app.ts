@@ -1,7 +1,10 @@
 import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
+const fbApp = require("./firebase.ts")
 
 dotenv.config();
+
+console.log(fbApp)
 
 const app: Express = express(); 
 const port = process.env.PORT
