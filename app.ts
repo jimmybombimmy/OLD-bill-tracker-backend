@@ -1,13 +1,12 @@
-import express, {Express, Request, Response} from 'express';
-import { db } from './db/connection';
-const fbApp = require("./firebase.ts")
+import express, { Express, Request, Response } from 'express';
+const fbApp = require("./db/firebase.ts")
 
-const app: Express = express(); 
+const app: Express = express();
 const port = 9090
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript are running together')
-})
+}) 
 
 app.get('/api/users')
 
