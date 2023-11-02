@@ -1,10 +1,10 @@
-interface paymentTypesData {
+interface PaymentTypesData {
   type: string;
   description: string;
   examples: string;
 }
 
-export const paymentTypes: paymentTypesData[] = [
+export const paymentTypes: PaymentTypesData[] = [
   {
     type: 'Direct Debit',
     description: 'Where an organisation is authorised to collect varying or regular amounts of money from your account.',
