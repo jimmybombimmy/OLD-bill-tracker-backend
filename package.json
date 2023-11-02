@@ -7,9 +7,9 @@
     "setup-dbs": "psql -f ./setup.sql",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node dist/index.js",
-    "dev": "concurrently \"tsc -w\" \"nodemon ./app.ts\"",
-    "seed": "node ./dist/seed-files/run-seed.js",
+    "start": "node dist/app.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon ./dist/app.js\"",
+    "seed": "node ./dist/db/seed-files/run-seed.js",
     "seed-prod": "NODE_ENV=production npm run seed"
   },
   "keywords": [],
