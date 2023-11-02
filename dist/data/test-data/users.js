@@ -1,8 +1,6 @@
 "use strict";
 // users.js
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.users = void 0;
-exports.users = [
+const users = [
     {
         username: "Goku",
         email: "goku@kamehouse.com",
@@ -29,4 +27,4 @@ exports.users = [
         password: "hashed_password_5", // Replace with the actual hashed password
     },
 ];
-module.exports = exports.users;
+module.exports = users;

@@ -6,7 +6,7 @@ interface UserData {
   password: string;
 }
 
-export const users: UserData[] = [
+const users: UserData[] = [
     {
       username: "Goku",
       email: "goku@kamehouse.com",

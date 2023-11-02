@@ -18,3 +18,4 @@ exports.paymentTypes = [
         examples: 'Netflix membership, Amazon Prime, Magazine Subscriptions'
     }
 ];
+module.exports = exports.paymentTypes;
