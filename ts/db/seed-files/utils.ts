@@ -1,4 +1,4 @@
-export const convertTimestampToDate = (dateBigInt: number) => {
-  const convertedDate = new Date(dateBigInt);
+export const convertTimestampToDate = (timestamp: number) => {
+  const convertedDate = new Date(timestamp);
   return convertedDate
 };
