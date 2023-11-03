@@ -1,5 +1,4 @@
 import express, { Express, Request, Response } from 'express';
-const fbApp = require("./db/firebase.js")
 
 const app: Express = express();
 const port = 9090
