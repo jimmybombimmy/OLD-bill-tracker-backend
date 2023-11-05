@@ -1,6 +1,5 @@
-"use strict";
 // users.js
-const users = [
+export const users = [
     {
         username: "Goku",
         email: "goku@kamehouse.com",
@@ -27,4 +26,3 @@ const users = [
         password: "hashed_password_5", // Replace with the actual hashed password
     },
 ];
-module.exports = users;

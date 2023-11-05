@@ -1,6 +1,5 @@
-"use strict";
 // transactions.js
-const transactions = [
+export const transactions = [
     // User 1 transactions
     {
         user_id: 1,
@@ -133,4 +132,3 @@ const transactions = [
         created_at: 1631466180000,
     },
 ];
-module.exports = transactions;

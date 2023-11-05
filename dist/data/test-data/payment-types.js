@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.paymentTypes = void 0;
-exports.paymentTypes = [
+export const paymentTypes = [
     {
         type: 'Direct Debit',
         description: 'Where an organisation is authorised to collect varying or regular amounts of money from your account.',
@@ -18,4 +15,3 @@ exports.paymentTypes = [
         examples: 'Netflix membership, Amazon Prime, Magazine Subscriptions'
     }
 ];
-module.exports = exports.paymentTypes;

@@ -6,7 +6,7 @@ interface UserData {
   password: string;
 }
 
-const users: UserData[] = [
+export const users: UserData[] = [
     {
       username: "Goku",
       email: "goku@kamehouse.com",
@@ -33,5 +33,3 @@ const users: UserData[] = [
       password: "hashed_password_5", // Replace with the actual hashed password
     },
   ]
-
-module.exports = users;

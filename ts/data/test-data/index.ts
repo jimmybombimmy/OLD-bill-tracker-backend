@@ -1,3 +1,8 @@
-exports.usersData = require('./users.js')
-exports.paymentTypesData = require('./payment-types.js')
-exports.transactionsData = require('./transactions.js')
+import {users} from './users.js'
+export const usersData = users
+
+import { paymentTypes } from './payment-types.js'
+export const paymentTypesData = paymentTypes
+
+import {transactions} from './transactions.js'
+export const transactionsData = transactions

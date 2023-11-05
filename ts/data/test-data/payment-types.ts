@@ -21,5 +21,3 @@ export const paymentTypes: PaymentTypesData[] = [
     examples: 'Netflix membership, Amazon Prime, Magazine Subscriptions'
   }
 ]
-
-module.exports = paymentTypes;

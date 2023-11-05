@@ -1,4 +1,4 @@
-import format = require('pg-format')
+import format from 'pg-format'
 import { db } from '../connection.js'
 import { convertTimestampToDate } from './utils.js';
 
@@ -171,4 +171,4 @@ const seed = (data: databaseTables) => {
       ))
     })
 }
-module.exports = { seed }
+export { seed }

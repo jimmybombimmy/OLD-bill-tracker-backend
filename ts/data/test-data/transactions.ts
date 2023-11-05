@@ -8,7 +8,7 @@ interface TransactionData {
   created_at: number;
 }
 
-const transactions: TransactionData[] = [
+export const transactions: TransactionData[] = [
   // User 1 transactions
   {
     user_id: 1,
@@ -145,5 +145,3 @@ const transactions: TransactionData[] = [
     created_at: 1631466180000,
   },
 ];
-
-module.exports = transactions;

@@ -1,14 +1,23 @@
-import express, { Express, Request, Response } from 'express';
+import express from 'express';
 
-const app: Express = express();
-const port = 9090
+import {getAllUsers} from './controllers/users.controller.js'
 
-app.get('/', (req: Request, res: Response) => {
+// interface ReqRes { 
+//   req: Request;
+//   res: Response;
+// } 
+
+export const app: express.Express = express();
+
+
+app.get('/', (req: express.Request, res: express.Response) => {
   res.send('Express + TypeScript are running together')
 }) 
 
-app.get('/api/users')
+app.get('/api/users', getAllUsers)
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-}); 
+// const port = 9090  
+// app.listen(port, () => {
+//   console.log(`Server is running at http://localhost:${port}`);
+// }); 
+// export {app}

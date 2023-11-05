@@ -1,19 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const format = require("pg-format");
-const connection_js_1 = require("../connection.js");
-const utils_js_1 = require("./utils.js");
+import format from 'pg-format';
+import { db } from '../connection.js';
+import { convertTimestampToDate } from './utils.js';
 const seed = (data) => {
-    return connection_js_1.db
+    return db
         .query(`DROP TABLE IF EXISTS transactions;`)
         .then(() => {
-        connection_js_1.db.query(`DROP TABLE IF EXISTS payment_types;`);
+        db.query(`DROP TABLE IF EXISTS payment_types;`);
     })
         .then(() => {
-        connection_js_1.db.query(`DROP TABLE IF EXISTS users;`);
+        db.query(`DROP TABLE IF EXISTS users;`);
     })
         .then(() => {
-        return connection_js_1.db.query(`
+        return db.query(`
       CREATE TABLE users(
         user_id SERIAL PRIMARY KEY,
         username VARCHAR NOT NULL,
@@ -22,7 +20,7 @@ const seed = (data) => {
       );`);
     })
         .then(() => {
-        return connection_js_1.db.query(`
+        return db.query(`
       CREATE TABLE payment_types(
         type_id SERIAL PRIMARY KEY,
         type VARCHAR NOT NULL,
@@ -31,7 +29,7 @@ const seed = (data) => {
       );`);
     })
         .then(() => {
-        return connection_js_1.db.query(`
+        return db.query(`
       CREATE TABLE transactions(
         transaction_id SERIAL PRIMARY KEY,
         user_id INT,
@@ -60,7 +58,7 @@ const seed = (data) => {
             const userClassFormat = new UserDataClass(u.username, u.email, u.password);
             return userClassFormat.createArray();
         };
-        return connection_js_1.db.query(format(`INSERT INTO users (username, email, password) VALUES %L RETURNING *;`, data.usersData.map((user) => {
+        return db.query(format(`INSERT INTO users (username, email, password) VALUES %L RETURNING *;`, data.usersData.map((user) => {
             return userArray(user);
         })));
     })
@@ -83,7 +81,7 @@ const seed = (data) => {
             const paymentTypeClassFormat = new PaymentTypeDataClass(p.type, p.description, p.examples);
             return paymentTypeClassFormat.createArray();
         };
-        connection_js_1.db.query(format(`INSERT INTO payment_types (type, description, examples) VALUES %L RETURNING *;`, data.paymentTypesData.map((payment) => {
+        db.query(format(`INSERT INTO payment_types (type, description, examples) VALUES %L RETURNING *;`, data.paymentTypesData.map((payment) => {
             return paymentTypeArray(payment);
         })));
     })
@@ -102,7 +100,7 @@ const seed = (data) => {
                     this.name,
                     this.type,
                     this.frequency,
-                    (0, utils_js_1.convertTimestampToDate)(this.created_at)
+                    convertTimestampToDate(this.created_at)
                 ];
             }
         }
@@ -110,9 +108,9 @@ const seed = (data) => {
             const transactionClassFormat = new TransactionDataClass(t.user_id, t.name, t.type, t.frequency, t.created_at);
             return transactionClassFormat.createArray();
         };
-        return connection_js_1.db.query(format(`INSERT INTO transactions (user_id, name, type, frequency, created_at) VALUES %L RETURNING *;`, data.transactionsData.map((transaction) => {
+        return db.query(format(`INSERT INTO transactions (user_id, name, type, frequency, created_at) VALUES %L RETURNING *;`, data.transactionsData.map((transaction) => {
             return transactionArray(transaction);
         })));
     });
 };
-module.exports = { seed };
+export { seed };
