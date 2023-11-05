@@ -48,6 +48,7 @@ const seed = (data: databaseTables) => {
       );`)
     })
     .then(() => {
+
       interface UserDataInterface {
         username: string;
         email: string;

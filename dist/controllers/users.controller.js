@@ -1,4 +1,7 @@
+import { getAllUsersModel } from '../db/models/users.models.js';
 export const getAllUsers = ((req, res) => {
-    res.send([]);
+    getAllUsersModel()
+        .then(rows => {
+        res.status(200).send(rows);
+    });
 });
-// module.exports = {getAllUsers}

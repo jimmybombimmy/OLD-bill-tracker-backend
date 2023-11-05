@@ -27,7 +27,10 @@ describe('GET /api/users', () => {
                 .get('/api/users')
                 .expect(200)
                 .then(({ body }) => {
-                expect(body.isArray()).toBe(true);
+                expect(Array.isArray(body)).toBe(true);
+                body.map(user => {
+                    expect(typeof user).toBe('object')
+                })
             });
         });
     });

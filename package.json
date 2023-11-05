@@ -9,7 +9,7 @@
   },
   "scripts": {
     "setup-dbs": "psql -f ./setup.sql",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js ",
     "build": "npx tsc",
     "start": "node dist/app.js",
     "dev": "concurrently \"tsc -w\" \"nodemon ./dist/app.js\"",
