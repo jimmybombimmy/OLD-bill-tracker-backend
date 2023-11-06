@@ -32,7 +32,7 @@ const seed = (data) => {
         return db.query(`
       CREATE TABLE transactions(
         transaction_id SERIAL PRIMARY KEY,
-        user_id INT,
+        user_id INT REFERENCES users(user_id) NOT NULL,
         name VARCHAR,
         type INT,
         frequency VARCHAR,
