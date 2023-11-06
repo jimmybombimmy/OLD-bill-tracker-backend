@@ -41,7 +41,7 @@ const seed = (data: databaseTables) => {
       CREATE TABLE transactions(
         transaction_id SERIAL PRIMARY KEY,
         user_id INT REFERENCES users(user_id) NOT NULL,
-        name VARCHAR,
+        name VARCHAR NOT NULL,
         type INT,
         frequency VARCHAR,
         created_at TIMESTAMP DEFAULT NOW()
