@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAllUsers, getUserById } from './controllers/users.controller.js';
-import { error404 } from './errors.js';
+import { pageNotFound } from './errors.js';
 // interface ReqRes { 
 //   req: Request;
 //   res: Response;
@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 });
 app.get('/api/users', getAllUsers);
 app.get('/api/users/:user_id', getUserById);
-app.get('/api/:anything', error404);
+app.get('/api/:anything', pageNotFound);
 // const port = 9090  
 // app.listen(port, () => {
 //   console.log(`Server is running at http://localhost:${port}`);
