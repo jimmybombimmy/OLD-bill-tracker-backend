@@ -71,10 +71,21 @@ describe('GET /api/users/user_id' , () => {
   describe('Successful connection test(s)', () => {
     test('200: userId returns a single object', () => {
         return request(app)
-            .get("/api/users/3")
+            .get('/api/users/3')
             .expect(200)
             .then(({body}) => {
                 expect(typeof body).toBe('object')
+                expect(Array.isArray(body)).toBe(false)
+            })
+    }),
+    test('200: Article returns with a users information', () => {
+        return request(app)
+            .get('/api/users/3')
+            .expect(200)
+            .then(({body}) => {
+                expect(body.username).toEqual('Piccolo')
+                expect(body.email).toEqual('piccolo@namekian.com')
+                expect(body.password).toEqual('hashed_password_3')
             })
     })
   })

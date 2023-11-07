@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getAllUsersModel } from '../db/models/users.models.js';
+import { getAllUsersModel, getUserByIdModel } from '../db/models/users.models.js';
 
 export const getAllUsers = ((req: express.Request, res: express.Response) => {
   getAllUsersModel()
@@ -10,5 +10,9 @@ export const getAllUsers = ((req: express.Request, res: express.Response) => {
 })
 
 export const getUserById = ((req: express.Request, res: express.Response) => {
-  res.status(200).send({})
+  const {user_id} = req.params;
+  getUserByIdModel(user_id)
+    .then(result => {
+      res.status(200).send(result[0])
+    })
 })

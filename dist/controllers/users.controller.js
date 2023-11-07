@@ -1,4 +1,4 @@
-import { getAllUsersModel } from '../db/models/users.models.js';
+import { getAllUsersModel, getUserByIdModel } from '../db/models/users.models.js';
 export const getAllUsers = ((req, res) => {
     getAllUsersModel()
         .then(rows => {
@@ -6,5 +6,9 @@ export const getAllUsers = ((req, res) => {
     });
 });
 export const getUserById = ((req, res) => {
-    res.status(200).send({});
+    const { user_id } = req.params;
+    getUserByIdModel(user_id)
+        .then(result => {
+        res.status(200).send(result[0]);
+    });
 });
