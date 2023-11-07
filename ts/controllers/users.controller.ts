@@ -8,3 +8,7 @@ export const getAllUsers = ((req: express.Request, res: express.Response) => {
       res.status(200).send(rows)
     }) 
 })
+
+export const getUserById = ((req: express.Request, res: express.Response) => {
+  res.status(200).send({})
+})

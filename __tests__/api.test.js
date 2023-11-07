@@ -53,11 +53,31 @@ describe("GET /api/users", () => {
           });
       });
   });
-  describe("Unsuccessful connection test(s)", () => {
+  describe.only("Unsuccessful connection test(s)", () => {
     test("404: Come back with error if route not correct", () => {
       return request(app)
-        .get("/api/tops")
-        .expect(404);
+        .get("/api/usernames")
+        .expect(404)
+        .then(({body}) => {
+            expect(body).toMatchObject({
+                message: "Error 404: Page not found"
+              })
+        })
     });
   });
 });
+
+describe.skip('GET /api/users/user_id' , () => {
+  describe('Successful connection test(s)', () => {
+    test('200: userId returns a single object', () => {
+        return request(app)
+            .get("/api/users/3")
+            .expect(200)
+            .then(({body}) => {
+                expect(typeof body).toBe('object')
+            })
+    })
+  })
+  describe('Unsuccessful connection test(s)', () => {
+  })
+})
