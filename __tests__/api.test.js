@@ -53,7 +53,7 @@ describe("GET /api/users", () => {
           });
       });
   });
-  describe.only("Unsuccessful connection test(s)", () => {
+  describe("Unsuccessful connection test(s)", () => {
     test("404: Come back with error if route not correct", () => {
       return request(app)
         .get("/api/usernames")
@@ -67,7 +67,7 @@ describe("GET /api/users", () => {
   });
 });
 
-describe.skip('GET /api/users/user_id' , () => {
+describe('GET /api/users/user_id' , () => {
   describe('Successful connection test(s)', () => {
     test('200: userId returns a single object', () => {
         return request(app)

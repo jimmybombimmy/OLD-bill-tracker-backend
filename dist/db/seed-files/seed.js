@@ -5,10 +5,10 @@ const seed = (data) => {
     return db
         .query(`DROP TABLE IF EXISTS transactions;`)
         .then(() => {
-        db.query(`DROP TABLE IF EXISTS payment_types;`);
+        return db.query(`DROP TABLE IF EXISTS payment_types;`);
     })
         .then(() => {
-        db.query(`DROP TABLE IF EXISTS users;`);
+        return db.query(`DROP TABLE IF EXISTS users;`);
     })
         .then(() => {
         return db.query(`
@@ -81,7 +81,7 @@ const seed = (data) => {
             const paymentTypeClassFormat = new PaymentTypeDataClass(p.type, p.description, p.examples);
             return paymentTypeClassFormat.createArray();
         };
-        db.query(format(`INSERT INTO payment_types (type, description, examples) VALUES %L RETURNING *;`, data.paymentTypesData.map((payment) => {
+        return db.query(format(`INSERT INTO payment_types (type, description, examples) VALUES %L RETURNING *;`, data.paymentTypesData.map((payment) => {
             return paymentTypeArray(payment);
         })));
     })

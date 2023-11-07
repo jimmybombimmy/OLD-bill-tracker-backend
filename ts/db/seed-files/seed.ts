@@ -13,10 +13,10 @@ const seed = (data: databaseTables) => {
     .query(`DROP TABLE IF EXISTS transactions;`)
     .then(() => {
 
-      db.query(`DROP TABLE IF EXISTS payment_types;`)
+      return db.query(`DROP TABLE IF EXISTS payment_types;`)
     })
     .then(() => {
-      db.query(`DROP TABLE IF EXISTS users;`)
+      return db.query(`DROP TABLE IF EXISTS users;`)
     })
     .then(() => {
       return db.query(`
@@ -48,7 +48,6 @@ const seed = (data: databaseTables) => {
       );`)
     })
     .then(() => {
-
       interface UserDataInterface {
         username: string;
         email: string;
@@ -118,7 +117,7 @@ const seed = (data: databaseTables) => {
         return paymentTypeClassFormat.createArray()
       }
 
-      db.query(format(
+      return db.query(format(
         `INSERT INTO payment_types (type, description, examples) VALUES %L RETURNING *;`,
         data.paymentTypesData.map((payment: any) => {
           return paymentTypeArray(payment)
@@ -142,11 +141,11 @@ const seed = (data: databaseTables) => {
         created_at: number;
 
         constructor(u: number, n: string, t: number, f: string, c: number) {
-        this.user_id = u,
-        this.name = n,
-        this.type = t,
-        this.frequency = f,
-        this.created_at = c
+          this.user_id = u,
+            this.name = n,
+            this.type = t,
+            this.frequency = f,
+            this.created_at = c
         }
 
         createArray() {
