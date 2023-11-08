@@ -122,26 +122,7 @@ export const transactions: TransactionData[] = [
     created_at: 1629644180000,
   },
 
-  // User 5 transactions
-  {
-    user_id: 5,
-    name: "Student Loan Payment",
-    type: 1, // Direct Debit
-    frequency: "monthly",
-    created_at: 1606826180000,
-  },
-  {
-    user_id: 5,
-    name: "Charity Donation",
-    type: 2, // Standing Order
-    frequency: "quarterly",
-    created_at: 1619146180000,
-  },
-  {
-    user_id: 5,
-    name: "Dental Checkup",
-    type: 3, // Recurring Payment
-    frequency: "biannual",
-    created_at: 1631466180000,
-  },
+  // User 5 does not have any transactions
+
+  
 ];
