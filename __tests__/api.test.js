@@ -206,5 +206,25 @@ describe("GET /api/users/:user_id/transactions", () => {
     })
   });
   describe("Unsuccessful connection test(s)", () => {
+    test("400: fails if user_id param is not a number", () => {
+      return request(app)
+        .get("/api/users/three/transactions")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body).toMatchObject({
+            message: "Error 400 - Bad Request: User path must be a number",
+          });
+        });
+    }),
+    test("404: fails if user_id param number does not match a user", () => {
+      return request(app)
+        .get("/api/users/99999999/transactions")
+        .expect(404)
+        .then(({ body }) => {
+          expect(body).toMatchObject({
+            message: "Error 404: User ID not found",
+          });
+        });
+    });
   });
 });
