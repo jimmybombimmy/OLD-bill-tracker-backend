@@ -1,8 +1,6 @@
 import express from 'express';
 
 import { db } from "../connection.js"
-import { error400, error404 } from "../../errors.js"
-import { getUserByIdModel } from './users.model.js';
 
 
 export const getAllTransactionsModel = () => {
