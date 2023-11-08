@@ -5,8 +5,8 @@ import { error404 } from '../errors.js';
 
 export const getAllUsers = ((req: express.Request, res: express.Response) => {
   getAllUsersModel()
-    .then(rows => {
-      res.status(200).send(rows)
+    .then(result => {
+      res.status(200).send(result)
     }) 
 })
 

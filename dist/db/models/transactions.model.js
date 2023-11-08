@@ -5,3 +5,9 @@ export const getAllTransactionsModel = () => {
         return rows;
     });
 };
+export const getTransactionsByUserModel = (user_id) => {
+    return db.query(`SELECT * FROM transactions WHERE user_id = ${user_id} ORDER BY created_at DESC;`)
+        .then(({ rows }) => {
+        return rows;
+    });
+};

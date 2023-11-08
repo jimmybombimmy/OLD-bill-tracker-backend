@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { getAllUsers, getUserById } from './controllers/users.controller.js'
-import { getAllTransactions } from './controllers/transactions.controller.js';
+import { getAllTransactions, getTransactionsByUser } from './controllers/transactions.controller.js';
 
 import { pageNotFound } from './errors.js';
 
@@ -22,6 +22,8 @@ app.get('/api/users', getAllUsers)
 app.get('/api/users/:user_id', getUserById)
 
 app.get('/api/transactions', getAllTransactions)
+
+app.get('/api/users/:user_id/transactions', getTransactionsByUser)
 
 app.get('/api/:anything', pageNotFound)
 

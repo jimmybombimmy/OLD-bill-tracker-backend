@@ -113,7 +113,7 @@ describe("GET /api/users/user_id", () => {
   });
 });
 
-describe.only("GET /api/transactions", () => {
+describe("GET /api/transactions", () => {
   describe("Successful connection test(s)", () => {
     test("200: returns an array", () => {
       return request(app)
@@ -123,7 +123,7 @@ describe.only("GET /api/transactions", () => {
           expect(Array.isArray(body)).toBe(true);
         });
     }),
-      test("200: array is full of objects that include all necessary parameters (if any transaction exists)", () => {
+      test("200: array is full of objects that include all necessary parameters", () => {
         return request(app)
           .get("/api/transactions")
           .expect(200)
@@ -158,5 +158,53 @@ describe.only("GET /api/transactions", () => {
           });
       });
     describe("Unsuccessful connection test(s)", () => {});
+  });
+});
+
+describe("GET /api/users/:user_id/transactions", () => {
+  describe("Successful connection test(s)", () => {
+    test("200: returns an array full of objects", () => {
+      return request(app)
+        .get("/api/users/2/transactions")
+        .expect(200)
+        .then(({ body }) => {
+          expect(Array.isArray(body)).toBe(true)
+          body.map(txn => {
+            expect(typeof txn).toBe('object')
+          })
+        });
+    }),
+    test("200: each users transaction has all relevant info", () => {
+      return request(app)
+        .get("/api/users/2/transactions")
+        .expect(200)
+        .then(({ body }) => {
+          body.map(txn => {
+            expect(txn).toHaveProperty("transaction_id", expect.any(Number));
+            expect(txn).toHaveProperty("user_id", expect.any(Number));
+            expect(txn).toHaveProperty("name", expect.any(String));
+            expect(txn).toHaveProperty("type", expect.any(Number));
+            expect(txn).toHaveProperty("frequency", expect.any(String));
+            expect(txn).toHaveProperty("created_at", expect.any(String));
+          })
+        });
+    }),
+    test("200: transactions should be ordered by newest first", () => {
+      return request(app)
+        .get("/api/users/2/transactions")
+        .expect(200)
+        .then(({ body }) => {
+          let lastCreated;
+          body.map((txn) => {
+            const unixEpochTimestamp = Date.parse(txn.created_at);
+            if (lastCreated !== undefined) {
+              expect(unixEpochTimestamp).toBeLessThanOrEqual(lastCreated);
+            }
+            lastCreated = unixEpochTimestamp;
+          });
+        });
+    })
+  });
+  describe("Unsuccessful connection test(s)", () => {
   });
 });
