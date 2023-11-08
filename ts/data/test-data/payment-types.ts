@@ -1,10 +1,6 @@
-interface PaymentTypesData {
-  type: string;
-  description: string;
-  examples: string;
-}
+import { PaymentTypesDataInterface } from "../../interfaces/data.interfaces.js"
 
-export const paymentTypes: PaymentTypesData[] = [
+export const paymentTypes: PaymentTypesDataInterface[] = [
   {
     type: 'Direct Debit',
     description: 'Where an organisation is authorised to collect varying or regular amounts of money from your account.',

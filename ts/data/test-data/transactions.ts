@@ -1,14 +1,8 @@
 // transactions.js
 
-interface TransactionData {
-  user_id: number;
-  name: string;
-  type: number;
-  frequency: string;
-  created_at: number;
-}
+import { TransactionDataInterface } from "../../interfaces/data.interfaces.js";
 
-export const transactions: TransactionData[] = [
+export const transactions: TransactionDataInterface[] = [
   // User 1 transactions
   {
     user_id: 1,

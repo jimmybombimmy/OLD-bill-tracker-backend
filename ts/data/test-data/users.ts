@@ -1,12 +1,8 @@
 // users.js
 
-interface UserData {
-  username: string;
-  email: string;
-  password: string;
-}
+import { UserDataInterface } from "../../interfaces/data.interfaces.js"
 
-export const users: UserData[] = [
+export const users: UserDataInterface[] = [
     {
       username: "Goku",
       email: "goku@kamehouse.com",
