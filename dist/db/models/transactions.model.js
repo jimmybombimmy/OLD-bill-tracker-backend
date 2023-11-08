@@ -11,3 +11,17 @@ export const getTransactionsByUserModel = (res, user_id) => {
         return rows;
     });
 };
+export const postNewTransactionModel = ((user_id, body) => {
+    const txnName = body.name;
+    const txnType = body.type;
+    const txnFreq = body.frequency;
+    return db.query(`
+    INSERT INTO transactions
+    (user_id, name, type, frequency)
+    VALUES
+    ($1, $2, $3, $4)
+    RETURNING *;`, [user_id, txnName, txnType, txnFreq])
+        .then(({ rows }) => {
+        return rows[0];
+    });
+});

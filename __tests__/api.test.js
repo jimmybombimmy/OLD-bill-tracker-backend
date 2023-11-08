@@ -168,50 +168,50 @@ describe("GET /api/users/:user_id/transactions", () => {
         .get("/api/users/2/transactions")
         .expect(200)
         .then(({ body }) => {
-          expect(Array.isArray(body)).toBe(true)
-          body.map(txn => {
-            expect(typeof txn).toBe('object')
-          })
-        });
-    }),
-    test("200: each users transaction has all relevant info", () => {
-      return request(app)
-        .get("/api/users/2/transactions")
-        .expect(200)
-        .then(({ body }) => {
-          body.map(txn => {
-            expect(txn).toHaveProperty("transaction_id", expect.any(Number));
-            expect(txn).toHaveProperty("user_id", expect.any(Number));
-            expect(txn).toHaveProperty("name", expect.any(String));
-            expect(txn).toHaveProperty("type", expect.any(Number));
-            expect(txn).toHaveProperty("frequency", expect.any(String));
-            expect(txn).toHaveProperty("created_at", expect.any(String));
-          })
-        });
-    }),
-    test("200: transactions should be ordered by newest first", () => {
-      return request(app)
-        .get("/api/users/2/transactions")
-        .expect(200)
-        .then(({ body }) => {
-          let lastCreated;
+          expect(Array.isArray(body)).toBe(true);
           body.map((txn) => {
-            const unixEpochTimestamp = Date.parse(txn.created_at);
-            if (lastCreated !== undefined) {
-              expect(unixEpochTimestamp).toBeLessThanOrEqual(lastCreated);
-            }
-            lastCreated = unixEpochTimestamp;
+            expect(typeof txn).toBe("object");
           });
         });
     }),
-    test("200: transactions will pull empty array if user has no transactions listed", () => {
-      return request(app)
-        .get("/api/users/5/transactions")
-        .expect(200)
-        .then(({ body }) => {
-          expect(body.length).toBe(0)
-        });
-    })
+      test("200: each users transaction has all relevant info", () => {
+        return request(app)
+          .get("/api/users/2/transactions")
+          .expect(200)
+          .then(({ body }) => {
+            body.map((txn) => {
+              expect(txn).toHaveProperty("transaction_id", expect.any(Number));
+              expect(txn).toHaveProperty("user_id", expect.any(Number));
+              expect(txn).toHaveProperty("name", expect.any(String));
+              expect(txn).toHaveProperty("type", expect.any(Number));
+              expect(txn).toHaveProperty("frequency", expect.any(String));
+              expect(txn).toHaveProperty("created_at", expect.any(String));
+            });
+          });
+      }),
+      test("200: transactions should be ordered by newest first", () => {
+        return request(app)
+          .get("/api/users/2/transactions")
+          .expect(200)
+          .then(({ body }) => {
+            let lastCreated;
+            body.map((txn) => {
+              const unixEpochTimestamp = Date.parse(txn.created_at);
+              if (lastCreated !== undefined) {
+                expect(unixEpochTimestamp).toBeLessThanOrEqual(lastCreated);
+              }
+              lastCreated = unixEpochTimestamp;
+            });
+          });
+      }),
+      test("200: transactions will pull empty array if user has no transactions listed", () => {
+        return request(app)
+          .get("/api/users/5/transactions")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.length).toBe(0);
+          });
+      });
   });
   describe("Unsuccessful connection test(s)", () => {
     test("400: fails if user_id param is not a number", () => {
@@ -224,15 +224,40 @@ describe("GET /api/users/:user_id/transactions", () => {
           });
         });
     }),
-    test("404: fails if user_id param number does not match a user", () => {
-      return request(app)
-        .get("/api/users/99999999/transactions")
-        .expect(404)
-        .then(({ body }) => {
-          expect(body).toMatchObject({
-            message: "Error 404: User ID not found",
+      test("404: fails if user_id param number does not match a user", () => {
+        return request(app)
+          .get("/api/users/99999999/transactions")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body).toMatchObject({
+              message: "Error 404: User ID not found",
+            });
           });
+      });
+  });
+});
+
+describe("POST /api/transactions/:user_id", () => {
+  describe("Successful connection test(s)", () => {
+    test("201: page returns with an object", () => {
+      const newTxn1 = {
+        user_id: 2,
+        name: "Netflix",
+        type: 3,
+        frequency: "monthly",
+      };
+
+      return request(app)
+        .post("/api/transactions/2")
+        .send(newTxn1)
+        .expect(201)
+        .then(({ body }) => {
+          expect(Array.isArray(body)).toBe(false);
+          expect(typeof body).toBe("object");
         });
-    });
+    })
+  });
+  describe("Unsuccessful connection test(s)", () => {
+    //user_id doesn't match txn details or link
   });
 });

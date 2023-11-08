@@ -1,7 +1,8 @@
 import express from 'express';
 
+
 import { getAllUsers, getUserById } from './controllers/users.controller.js'
-import { getAllTransactions, getTransactionsByUser } from './controllers/transactions.controller.js';
+import { getAllTransactions, getTransactionsByUser, postNewTransaction } from './controllers/transactions.controller.js';
 
 import { pageNotFound } from './errors.js';
 
@@ -11,6 +12,9 @@ import { pageNotFound } from './errors.js';
 // } 
 
 export const app: express.Express = express();
+
+app.use(express.json())
+
 
 
 app.get('/', (req: express.Request, res: express.Response) => {
@@ -25,7 +29,10 @@ app.get('/api/transactions', getAllTransactions)
 
 app.get('/api/users/:user_id/transactions', getTransactionsByUser)
 
+app.post('/api/transactions/:user_id', postNewTransaction)
+
 app.get('/api/:anything', pageNotFound)
+
 
 // const port = 9090  
 // app.listen(port, () => {

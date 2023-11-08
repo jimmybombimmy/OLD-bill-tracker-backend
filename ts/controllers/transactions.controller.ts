@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getAllTransactionsModel, getTransactionsByUserModel } from '../db/models/transactions.model.js'
+import { getAllTransactionsModel, getTransactionsByUserModel, postNewTransactionModel } from '../db/models/transactions.model.js'
 import { getUserByIdModel } from '../db/models/users.model.js'
 import { error400, error404 } from '../errors.js'
 
@@ -29,9 +29,17 @@ export const getTransactionsByUser = (async (req: express.Request, res: express.
   if (user404Check == 0) {
     return error404(res, 'userNotFound')
   }
-  
+
   getTransactionsByUserModel(res, user_id)!
     .then(result => {
       res.status(200).send(result)
+    })
+})
+
+export const postNewTransaction = ((req: express.Request, res: express.Response) => {
+  const { user_id } = req.params
+  postNewTransactionModel(user_id, req.body)
+    .then((txn) => {
+      res.status(201).send(txn)
     })
 })
