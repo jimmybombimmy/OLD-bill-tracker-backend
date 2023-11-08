@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getAllUsersModel, getUserByIdModel } from '../db/models/users.models.js';
+import { getAllUsersModel, getUserByIdModel } from '../db/models/users.model.js';
 import { error404 } from '../errors.js';
 
 export const getAllUsers = ((req: express.Request, res: express.Response) => {
