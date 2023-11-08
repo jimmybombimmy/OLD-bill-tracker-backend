@@ -203,6 +203,14 @@ describe("GET /api/users/:user_id/transactions", () => {
             lastCreated = unixEpochTimestamp;
           });
         });
+    }),
+    test("200: transactions will pull empty array if user has no transactions listed", () => {
+      return request(app)
+        .get("/api/users/5/transactions")
+        .expect(200)
+        .then(({ body }) => {
+          expect(body.length).toBe(0)
+        });
     })
   });
   describe("Unsuccessful connection test(s)", () => {
