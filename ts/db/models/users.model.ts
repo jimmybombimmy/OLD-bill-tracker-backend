@@ -17,6 +17,7 @@ export const getUserByIdModel = (res: express.Response, user_id: string) => {
   }
   return db.query(`SELECT * FROM users WHERE user_id = ${user_id}`)
     .then(({rows}) => {
+      console.log("hi")
       return rows[0]   
     })
 }

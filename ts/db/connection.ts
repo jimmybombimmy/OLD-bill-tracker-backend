@@ -9,7 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-const ENV = process.env.NODE_ENV || 'test';
+const ENV = process.env.NODE_ENV || 'development';
+
 dotenv.config({
   path: `${__dirname}/../../.env.${ENV}`
 })

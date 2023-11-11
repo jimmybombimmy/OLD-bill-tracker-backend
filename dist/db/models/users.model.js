@@ -13,6 +13,7 @@ export const getUserByIdModel = (res, user_id) => {
     }
     return db.query(`SELECT * FROM users WHERE user_id = ${user_id}`)
         .then(({ rows }) => {
+        console.log("hi");
         return rows[0];
     });
 };

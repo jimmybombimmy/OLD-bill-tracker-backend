@@ -11,6 +11,7 @@ const testData = { usersData, paymentTypesData, transactionsData };
 import { db } from "../dist/db/connection.js";
 const connection = db;
 
+
 beforeEach(() => seed(testData));
 afterAll(() => connection.end());
 
@@ -23,6 +24,47 @@ afterAll(() => connection.end());
 //   describe('Unsuccessful connection test(s)', () => {
 //   })
 // })
+
+describe.only('POST /api/auth/register' , () => {
+  describe('Successful connection test(s)', () => {
+    test('201: test user signup n shit', () => {
+      const userReg1 = {
+        username: "Vegeta",
+        email: "vegeta@saiyanprince.com",
+        password: "test"
+      }
+      return request(app)
+        .post("/api/auth/register")
+        .send(userReg1)
+        .expect(201)
+        .then((body) => {
+          console.log(":body", body)
+        })
+    })
+  })
+  describe('Unsuccessful connection test(s)', () => {
+  })
+})
+
+describe("POST /api/auth/login", () => {
+  describe("Successful connection test(s)", () => {
+    test("201: Logs in n shit", () => {
+      const userLogin1 = {
+        email: "vegeta@saiyanprince.com",
+        password: "test"
+      }
+      return request(app)
+        .post("/api/auth/login")
+        .send(userLogin1)
+        .expect(201)
+        .then(({text}) => {
+          console.log(":body", text)
+        })
+    })
+  })
+  describe("Unsuccessful connection test(s)", () => {
+  })
+})
 
 describe("GET /api/users", () => {
   describe("Successful connection test(s)", () => {
