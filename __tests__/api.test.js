@@ -264,41 +264,71 @@ describe("POST /api/transactions/:user_id", () => {
 
 describe("POST /api/auth/register", () => {
   describe("Successful connection test(s)", () => {
-    const userReg = {
-      username: "Gohan123",
-      email: "gohan@satancity.com",
-      password: "test123",
-    };
-    test(
-      "201: Registered user returns as an object with a user_id and a hashed password from the database",
-      async () => {
-        await request(app)
-          .post("/api/auth/register")
-          .send(userReg)
-          .expect(201)
-          .then(({ body }) => {
-            expect(typeof body).toBe("object");
-            expect(Array.isArray(body)).toBe(false);
-            expect(body.user_id).toBe(6);
-            expect(body.username).toBe("Gohan123");
-            expect(body.email).toBe("gohan@satancity.com");
-            expect(body.password).not.toBe(userReg.password);
-            expect(body.password.length).toBeGreaterThan(20);
-          });
-        return request(app)
-          .get("/api/users/6")
-          .expect(200)
-          .then(({ body }) => {
-            expect(typeof body).toBe("object");
-            expect(Array.isArray(body)).toBe(false);
-            expect(body.user_id).toBe(6);
-            expect(body.username).toBe("Gohan123");
-            expect(body.email).toBe("gohan@satancity.com");
-            expect(body.password).not.toBe(userReg.password);
-            expect(body.password.length).toBeGreaterThan(20);
-          });
-      }
-    );
+    test("201: Registered user returns as an object with a user_id and a hashed password from the database", async () => {
+      const userReg = {
+        username: "Gohan123",
+        email: "gohan@satancity.com",
+        password: "test123",
+      };
+      await request(app)
+        .post("/api/auth/register")
+        .send(userReg)
+        .expect(201)
+        .then(({ body }) => {
+          expect(typeof body).toBe("object");
+          expect(Array.isArray(body)).toBe(false);
+          expect(body.user_id).toBe(6);
+          expect(body.username).toBe("Gohan123");
+          expect(body.email).toBe("gohan@satancity.com");
+          expect(body.password).not.toBe(userReg.password);
+          expect(body.password.length).toBeGreaterThan(20);
+        });
+      return request(app)
+        .get("/api/users/6")
+        .expect(200)
+        .then(({ body }) => {
+          expect(typeof body).toBe("object");
+          expect(Array.isArray(body)).toBe(false);
+          expect(body.user_id).toBe(6);
+          expect(body.username).toBe("Gohan123");
+          expect(body.email).toBe("gohan@satancity.com");
+          expect(body.password).not.toBe(userReg.password);
+          expect(body.password.length).toBeGreaterThan(20);
+        });
+    });
   });
-  describe("Unsuccessful connection test(s)", () => {});
+  describe("Unsuccessful connection test(s)", () => {
+    test("409: username should not match existing username", () => {
+      const userRegBad1 = {
+        username: "Vegeta",
+        email: "vegeta@planetvegeta.com",
+        password: "test",
+      };
+      return request(app)
+        .post("/api/auth/register")
+        .send(userRegBad1)
+        .expect(409)
+        .then(({ body }) => {
+          expect(body).toMatchObject({
+            message: "Error 409: Username already exists",
+          });
+        });
+    });
+    test("409: email should not match existing email", () => {
+      const userRegBad1 = {
+        username: "Goten123",
+        email: "goku@kamehouse.com",
+        password: "test",
+      };
+      return request(app)
+        .post("/api/auth/register")
+        .send(userRegBad1)
+        .expect(409)
+        .then(({ body }) => {
+          expect(body).toMatchObject({
+            message: "Error 409: User already registered with email",
+          });
+        });
+    });
+  });
 });

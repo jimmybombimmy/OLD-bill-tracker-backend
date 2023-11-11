@@ -4,6 +4,25 @@ import bcrypt from 'bcrypt';
 import { db } from "../connection.js";
 import { error400 } from "../../errors.js";
 export const registerUserModel = async (email, username, password) => {
+    let usernameConflict = false;
+    let emailConflict = false;
+    await db.query(`SELECT * FROM users;`)
+        .then(({ rows }) => {
+        rows.forEach((user) => {
+            if (user.username === username) {
+                usernameConflict = true;
+            }
+            if (user.email === email) {
+                emailConflict = true;
+            }
+        });
+    });
+    if (usernameConflict != false) {
+        return { message: "Error 409: Username already exists" };
+    }
+    else if (emailConflict != false) {
+        return { message: "Error 409: User already registered with email" };
+    }
     return await bcrypt.hash(password, 10)
         .then((securePass) => {
         return db.query(`
