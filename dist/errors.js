@@ -17,6 +17,9 @@ export const error400 = ((res, reason) => {
         });
     }
 });
+export const error409 = ((res, reason) => {
+    res.status(409).send(reason);
+});
 export const pageNotFound = ((req, res) => {
     return error404(res, 'pageNotFound');
 });

@@ -1,13 +1,13 @@
 import { getAllUsersModel, getUserByIdModel, registerUserModel } from '../db/models/users.model.js';
-import { error404 } from '../errors.js';
+import { error404, error409 } from '../errors.js';
 export const registerUser = (async (req, res) => {
     const newUser = req.body;
     await registerUserModel(newUser.email, newUser.username, newUser.password)
-        .then((response) => {
-        if (response.message === "Error 409: Username already exists" || response.message === "Error 409: User already registered with email") {
-            return res.status(409).send(response);
+        .then((result) => {
+        if (result.message === "Error 409: Username already exists" || result.message === "Error 409: User already registered with email") {
+            return error409(res, result);
         }
-        res.status(201).send(response);
+        res.status(201).send(result);
     });
 });
 export const getAllUsers = ((req, res) => {
