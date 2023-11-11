@@ -24,6 +24,22 @@ afterAll(() => connection.end());
 //   })
 // })
 
+////////Test Template////////
+describe('POST /api/auth/register' , () => {
+  describe('Successful connection test(s)', () => {
+    test('201: Register user', () => {
+      return request(app)
+        .get("/api/auth/register")
+        .expect(201)
+        .then(({body}) => {
+          console.log(body)
+        })
+    })
+  })
+  describe('Unsuccessful connection test(s)', () => {
+  })
+})
+
 describe("GET /api/users", () => {
   describe("Successful connection test(s)", () => {
     test("200: page returns an array of objects", () => {

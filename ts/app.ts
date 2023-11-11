@@ -21,6 +21,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
   res.send('Express + TypeScript are running together')
 })
 
+app.post('/api/auth/register')
+
 app.get('/api/users', getAllUsers)
 
 app.get('/api/users/:user_id', getUserById)
