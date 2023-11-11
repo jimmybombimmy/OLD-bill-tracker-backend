@@ -1,7 +1,9 @@
 import express from 'express';
+import passport from 'passport';
+import passportLocal from 'passport-local'
+const LocalStrategy = passportLocal.Strategy
 
-
-import { getAllUsers, getUserById } from './controllers/users.controller.js'
+import { getAllUsers, getUserById, registerUser } from './controllers/users.controller.js'
 import { getAllTransactions, getTransactionsByUser, postNewTransaction } from './controllers/transactions.controller.js';
 
 import { pageNotFound } from './errors.js';
@@ -15,13 +17,11 @@ export const app: express.Express = express();
 
 app.use(express.json())
 
-
-
 app.get('/', (req: express.Request, res: express.Response) => {
   res.send('Express + TypeScript are running together')
 })
 
-app.post('/api/auth/register')
+app.post('/api/auth/register', registerUser)
 
 app.get('/api/users', getAllUsers)
 

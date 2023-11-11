@@ -24,22 +24,6 @@ afterAll(() => connection.end());
 //   })
 // })
 
-////////Test Template////////
-describe('POST /api/auth/register' , () => {
-  describe('Successful connection test(s)', () => {
-    test('201: Register user', () => {
-      return request(app)
-        .get("/api/auth/register")
-        .expect(201)
-        .then(({body}) => {
-          console.log(body)
-        })
-    })
-  })
-  describe('Unsuccessful connection test(s)', () => {
-  })
-})
-
 describe("GET /api/users", () => {
   describe("Successful connection test(s)", () => {
     test("200: page returns an array of objects", () => {
@@ -271,9 +255,50 @@ describe("POST /api/transactions/:user_id", () => {
           expect(Array.isArray(body)).toBe(false);
           expect(typeof body).toBe("object");
         });
-    })
+    });
   });
   describe("Unsuccessful connection test(s)", () => {
     //user_id doesn't match txn details or link
   });
+});
+
+describe("POST /api/auth/register", () => {
+  describe("Successful connection test(s)", () => {
+    const userReg = {
+      username: "Gohan123",
+      email: "gohan@satancity.com",
+      password: "test123",
+    };
+    test(
+      "201: Registered user returns as an object with a user_id and a hashed password from the database",
+      async () => {
+        await request(app)
+          .post("/api/auth/register")
+          .send(userReg)
+          .expect(201)
+          .then(({ body }) => {
+            expect(typeof body).toBe("object");
+            expect(Array.isArray(body)).toBe(false);
+            expect(body.user_id).toBe(6);
+            expect(body.username).toBe("Gohan123");
+            expect(body.email).toBe("gohan@satancity.com");
+            expect(body.password).not.toBe(userReg.password);
+            expect(body.password.length).toBeGreaterThan(20);
+          });
+        return request(app)
+          .get("/api/users/6")
+          .expect(200)
+          .then(({ body }) => {
+            expect(typeof body).toBe("object");
+            expect(Array.isArray(body)).toBe(false);
+            expect(body.user_id).toBe(6);
+            expect(body.username).toBe("Gohan123");
+            expect(body.email).toBe("gohan@satancity.com");
+            expect(body.password).not.toBe(userReg.password);
+            expect(body.password.length).toBeGreaterThan(20);
+          });
+      }
+    );
+  });
+  describe("Unsuccessful connection test(s)", () => {});
 });
